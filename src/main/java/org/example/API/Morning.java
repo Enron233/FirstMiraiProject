@@ -19,7 +19,7 @@ import java.util.Objects;
 public class Morning {
     private static String getMorningUrl() throws IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("https://api.2xb.cn/zaob");
+        HttpGet httpGet = new HttpGet("https://api.iyk0.com/60s");
         CloseableHttpResponse response = null;
         response = httpClient.execute(httpGet);
         if (response.getStatusLine().getStatusCode() == 200) {

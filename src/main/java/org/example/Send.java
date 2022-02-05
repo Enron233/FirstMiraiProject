@@ -11,13 +11,15 @@ import java.io.IOException;
 
 public class Send {
     public static void sendMess(Message message) {
-        ContactList<Group> list = Bot.getInstance(1049768206).getGroups();
-        for (Group group:list){
-            group.sendMessage(message);
+        for (int i=0;i<Bot.getInstances().size();i++){
+            ContactList<Group> list = Bot.getInstances().get(i).getGroups();
+            for (Group group:list){
+                group.sendMessage(message);
+            }
         }
     }
     public static void sendMorning(Message message) throws IOException {
-        ContactList<Group> list = Bot.getInstance(1049768206).getGroups();
+        ContactList<Group> list = Bot.getInstances().get(0).getGroups();
         for (Group group : list) {
             group.sendMessage(MessageUtils.newChain(message,Morning.getMorningImage(group)));
         }

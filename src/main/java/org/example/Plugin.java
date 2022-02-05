@@ -8,9 +8,9 @@ import java.util.*;
 
 public final class Plugin extends JavaPlugin {
     public static final Plugin INSTANCE = new Plugin();
-    public static Calendar cal;
-    public static int hour,minute,second,xq;
-    public static Boolean hadSent,button;
+    public static Calendar cal = Calendar.getInstance();
+    public static int hour,minute,second;
+    public static Boolean hadSent;
 
     private Plugin() {
         super(new JvmPluginDescriptionBuilder("org.example.plugin", "1.0-SNAPSHOT").build());
@@ -18,38 +18,26 @@ public final class Plugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getLogger().info("Plugin loaded!");
-        button = false;
         timeUpdate();
-        task();
         Listener.onListen();
+        getLogger().info("Plugin loaded啦!");
 
     }
-    private void task() {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    Hello.timeHello();
-                    Lesson.lessonTx();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        },1000,1000);
-    }
-    private void timeUpdate() {
+    public static void timeUpdate() {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 cal = Calendar.getInstance();
-                xq = cal.get(Calendar.DAY_OF_WEEK);
                 hour = cal.get(Calendar.HOUR_OF_DAY);
                 minute = cal.get(Calendar.MINUTE);
                 second = cal.get(Calendar.SECOND);
+                try {
+                    Hello.timeHello();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }, 1000, 1000);
+        },500, 1000);
     }
 }
